@@ -9,8 +9,8 @@
     <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8 </project.build.sourceEncoding>
     </properties>
 
@@ -47,6 +47,8 @@
     </dependencies>
 
     <build>
+
+
         <plugins>
             <!-- Usual compilation -->
             <plugin>
@@ -81,7 +83,7 @@
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
@@ -97,10 +99,11 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org/eclipse/jdt/internal/jarinjarloader/JarRsrcLoader.java</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org/eclipse/jdt/internal/jarinjarloader/JarRsrcLoader</mainClass>
                         </manifest>>
                         <manifestEntries>
-                            <Class-Path>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</Class-Path>
+                            <Class-Path>./</Class-Path>
                             <Rsrc-Main-Class>com.javarush.games.racer.RacerGame</Rsrc-Main-Class>
                         </manifestEntries>
                     </archive>
@@ -118,6 +121,15 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>
+                    ${project.build.directory}/lib
+                </directory>
+                <targetPath>lib/</targetPath>
+            </resource>
+        </resources>
     </build>
 
 </project>
